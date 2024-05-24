@@ -47,14 +47,25 @@ const displayPhones = (phones) => {
     `;
     phoneContainer.append(phoneCard);
   });
+  toggleLoadingSpinner(false);
 };
 
 // search haldler
 const handleSearch = () => {
+  toggleLoadingSpinner(true);
   const searchField = document.getElementById("input-field");
   const searchText = searchField.value;
   console.log(searchText);
   loadPhone(searchText);
+};
+
+const toggleLoadingSpinner = (isLoading) => {
+  const loadingSpinner = document.getElementById("loading-spinner");
+  if (isLoading) {
+    loadingSpinner.classList.remove("hidden");
+  } else {
+    loadingSpinner.classList.add("hidden");
+  }
 };
 
 // loadPhone();

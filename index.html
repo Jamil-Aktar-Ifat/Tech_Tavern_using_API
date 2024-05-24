@@ -11,6 +11,7 @@
       rel="stylesheet"
       type="text/css"
     />
+    <!-- tailwindcss  -->
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
@@ -32,9 +33,11 @@
 
       <!-- search result   -->
       <section>
+        <!-- loading spinner  -->
         <div id="loading-spinner" class="text-center my-40 hidden">
           <span class="loading loading-spinner loading-lg"></span>
         </div>
+        <!-- phone content  -->
         <div
           id="phone-container"
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
@@ -57,16 +60,16 @@
         </div>
         <div
           id="show-all-container"
-          class="hidden flex items-center justify-center"
+          class="hidden text-center"
         >
-          <button onclick="" class="btn btn-accent btn-wide mt-5">
+          <button onclick="handleShowAll()" class="btn btn-accent btn-wide my-5">
             Show all
           </button>
         </div>
       </section>
     </main>
     <footer></footer>
-
+    <!-- scripts  -->
     <script src="./scripts/tech.js"></script>
   </body>
 </html>

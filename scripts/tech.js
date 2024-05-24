@@ -1,4 +1,4 @@
-const loadPhone = async (searchText, isShowAll) => {
+const loadPhone = async (searchText = "13", isShowAll) => {
   const res = await fetch(
     `https://openapi.programming-hero.com/api/phones?search=${searchText}`
   );
@@ -20,7 +20,7 @@ const displayPhones = (phones, isShowAll) => {
   } else {
     showAllContainer.classList.add("hidden");
   }
-  console.log("is show all", isShowAll);
+  // console.log("is show all", isShowAll);
 
   // display only first 12 phones if not show all
   if (!isShowAll) {
@@ -29,7 +29,7 @@ const displayPhones = (phones, isShowAll) => {
 
   // console.log(phones);
   phones.forEach((phone) => {
-    console.log(phone);
+    // console.log(phone);
     /**
      * 1. get the html element
      * 2. create a div
@@ -43,8 +43,8 @@ const displayPhones = (phones, isShowAll) => {
     <div class="card-body">
       <h2 class="card-title">${phone.phone_name}</h2>
       <p>If a dog chews shoes whose shoes does he choose?</p>
-      <div class="card-actions justify-end">
-        <button class="btn btn-primary">Buy Now</button>
+      <div class="card-actions justify-center">
+        <button onclick="handleShowDetail('${phone.slug}')" class="btn btn-accent">Show Details</button>
       </div>
     </div> 
     `;
@@ -58,7 +58,7 @@ const handleSearch = (isShowAll) => {
   toggleLoadingSpinner(true);
   const searchField = document.getElementById("input-field");
   const searchText = searchField.value;
-  console.log(searchText);
+  // console.log(searchText);
   loadPhone(searchText, isShowAll);
 };
 
@@ -77,4 +77,30 @@ const handleShowAll = () => {
   handleSearch(true);
 };
 
-// loadPhone();
+// handle show details
+const handleShowDetail = async (id) => {
+  console.log("show detail button clicked!", id);
+  // load single phone data
+  const res = await fetch(
+    `https://openapi.programming-hero.com/api/phone/${id}`
+  );
+  const data = await res.json();
+  const phone = data.data;
+
+  showPhoneDetails(phone);
+};
+
+showPhoneDetails = (phone) => {
+  console.log(phone);
+
+  const phoneDetailContainer = document.getElementById("show-detail-container");
+  phoneDetailContainer.innerHTML = `
+  <img class="my-4 mx-auto" src="${phone.image}" alt="" />
+  <h3 class="font-bold text-lg">${phone.name}</h3>
+  <p><span class="font-bold">Storage: </span>${phone?.mainFeatures?.storage}</p>
+   `;
+  // show the modal
+  show_details_modal.showModal();
+};
+
+loadPhone();
